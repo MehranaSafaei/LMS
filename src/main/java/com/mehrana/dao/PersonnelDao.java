@@ -27,16 +27,17 @@ public class PersonnelDao extends AbstractDao<Personnel> {
 
 
 
-    public Optional<Personnel> findByUsername(String username) {
+    public Personnel findByUsername(String username) {
         try {
             Personnel personnel = entityManager.createNamedQuery(
                             "selectByUsername", Personnel.class)
                     .setParameter("username", username)
                     .getSingleResult();
-            return Optional.of(personnel);
+            return personnel;
         } catch (NoResultException e) {
-            return Optional.empty();
+            e.printStackTrace();
         }
+        return null;
     }
 
     public Optional<Personnel> findByIdOptional(Long id) {

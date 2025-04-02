@@ -62,7 +62,7 @@ public class PersonnelService {
     }
 
     public PersonnelDto findByUsername(String username) {
-        Optional<Personnel> personnel = personnelDao.findByUsername(username);
+        Optional<Personnel> personnel = Optional.ofNullable(personnelDao.findByUsername(username));
         if (personnel.isEmpty()) {
             throw new NotFoundException("Personnel with username " + username + " not found.");
         }

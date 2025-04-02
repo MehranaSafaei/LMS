@@ -1,12 +1,11 @@
 package com.mehrana.model.entity;
 
 import jakarta.persistence.*;
-
 import java.util.Objects;
 import java.util.Set;
 
 @MappedSuperclass
-public class AbstractPersonnel {
+public abstract class AbstractPersonnel {
 
     private Long id;
     private String username;
@@ -19,30 +18,34 @@ public class AbstractPersonnel {
     public Long getId() {
         return id;
     }
+
     public void setId(Long id) {
         this.id = id;
     }
 
-    @Column(name = "Username", unique = true)
+    @Column(name = "username", unique = true)
     public String getUsername() {
         return username;
     }
+
     public void setUsername(String username) {
         this.username = username;
     }
 
-    @Column(name = "Password", unique = true, nullable = false)
+    @Column(name = "password", nullable = false)
     public String getPassword() {
         return password;
     }
+
     public void setPassword(String password) {
         this.password = password;
     }
 
-    @Column(name = "PersonnelCode", unique = true, nullable = false)
+    @Column(name = "personnel_code", unique = true, nullable = false)
     public Long getPersonnelCode() {
         return personnelCode;
     }
+
     public void setPersonnelCode(Long personnelCode) {
         this.personnelCode = personnelCode;
     }
@@ -51,6 +54,7 @@ public class AbstractPersonnel {
     public Set<Leave> getLeaves() {
         return leaves;
     }
+
     public void setLeaves(Set<Leave> leaves) {
         this.leaves = leaves;
     }
@@ -80,6 +84,6 @@ public class AbstractPersonnel {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, username, password, personnelCode,leaves);
+        return Objects.hash(id, username, password, personnelCode, leaves);
     }
 }

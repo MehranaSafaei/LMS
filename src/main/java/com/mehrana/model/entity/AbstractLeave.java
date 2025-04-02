@@ -3,9 +3,10 @@ package com.mehrana.model.entity;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 @MappedSuperclass
-public class AbstractLeave {
+public abstract class AbstractLeave {
 
     private Long id;
     private LocalDate leaveDate;
@@ -71,5 +72,31 @@ public class AbstractLeave {
     }
     public void setPersonnel(Personnel personnel) {
         this.personnel = personnel;
+    }
+
+    @Override
+    public String toString() {
+        return "AbstractLeave{" +
+                "id=" + id +
+                ", leaveDate=" + leaveDate +
+                ", leaveStartDate=" + leaveStartDate +
+                ", leaveEndDate=" + leaveEndDate +
+                ", leaveType='" + leaveType + '\'' +
+                ", leaveReason='" + leaveReason + '\'' +
+                ", personnel=" + personnel +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AbstractLeave that = (AbstractLeave) o;
+        return Objects.equals(id, that.id) && Objects.equals(leaveDate, that.leaveDate) && Objects.equals(leaveStartDate, that.leaveStartDate) && Objects.equals(leaveEndDate, that.leaveEndDate) && Objects.equals(leaveType, that.leaveType) && Objects.equals(leaveReason, that.leaveReason) && Objects.equals(personnel, that.personnel);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, leaveDate, leaveStartDate, leaveEndDate, leaveType, leaveReason, personnel);
     }
 }
