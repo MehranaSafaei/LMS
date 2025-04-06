@@ -3,6 +3,8 @@ package com.mehrana.rest;
 import com.mehrana.model.dto.LeaveDto;
 import com.mehrana.model.dto.UpdateLeaveRequest;
 import com.mehrana.service.LeaveService;
+import jakarta.annotation.security.PermitAll;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityNotFoundException;
@@ -20,6 +22,7 @@ public class LeaveResource {
     private LeaveService leaveService;
 
     @POST
+    @RolesAllowed({"admin","user"})
     @Path("/create/{personnelCode}")
     public Response create(@PathParam("personnelCode") Long personnelCode, LeaveDto leaveDto) {
         try {
@@ -32,6 +35,7 @@ public class LeaveResource {
         }
     }
     @GET
+    @PermitAll
     @Path("/getAll")
     public Response getAll() {
         return Response.ok(leaveService.findAll()).build();
@@ -51,6 +55,7 @@ public class LeaveResource {
     }
 
     @DELETE
+    @RolesAllowed("admin")
     @Path("/delete/{id}")
     public Response delete(@PathParam("id") Long id) {
         try {

@@ -15,7 +15,7 @@ public class LmsJwtService {
         Set<String> roles = new HashSet<>(
                 Arrays.asList("admin", "user")
         );
-        long duration = System.currentTimeMillis() + 1000 * 60 * 60 * 24;
+        long duration = System.currentTimeMillis() + 3600;
         return Jwt.issuer("mehrana.auth")
                 .subject("mehrana.auth")
                 .groups(roles).
