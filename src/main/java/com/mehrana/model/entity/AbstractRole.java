@@ -15,6 +15,7 @@ public class AbstractRole {
     public String name;
     private boolean active;
     public Set<Permission> permissions = new HashSet<>();
+    private Set<Personnel> personnel = new HashSet<>();
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,10 +48,12 @@ public class AbstractRole {
         this.active = active;
     }
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "role_permissions",
-            joinColumns = @JoinColumn(name = "role_id"),
-            inverseJoinColumns = @JoinColumn(name = "permission_id"))
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @JoinTable(
+            name = "role_permission",
+            joinColumns = {@JoinColumn(name = "role_id",referencedColumnName = "id")},
+            inverseJoinColumns = {
+                    @JoinColumn(name = "permission_id",referencedColumnName = "id")})
     public Set<Permission> getPermissions() {
         return permissions;
     }
@@ -62,11 +65,11 @@ public class AbstractRole {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         AbstractRole that = (AbstractRole) o;
-        return Objects.equals(id, that.id) && Objects.equals(key, that.key) && Objects.equals(name, that.name) && Objects.equals(permissions, that.permissions);
+        return active == that.active && Objects.equals(id, that.id) && Objects.equals(key, that.key) && Objects.equals(name, that.name) && Objects.equals(permissions, that.permissions) && Objects.equals(personnel, that.personnel);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, key, name, permissions);
+        return Objects.hash(id, key, name, active, permissions, personnel);
     }
 }

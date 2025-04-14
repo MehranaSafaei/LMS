@@ -47,7 +47,7 @@ public class AbstractPermission {
         this.active = active;
     }
 
-    @ManyToMany(mappedBy = "permissions")
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "permissions",cascade = {})
     public Set<Role> getRoles() {
         return roles;
     }

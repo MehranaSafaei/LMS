@@ -1,6 +1,8 @@
 package com.mehrana.model.entity;
 
 import jakarta.persistence.*;
+
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -12,13 +14,13 @@ public abstract class AbstractPersonnel {
     private String password;
     private Long personnelCode;
     private Set<Leave> leaves;
+    private Set<Role> roles = new HashSet<>();
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long getId() {
         return id;
     }
-
     public void setId(Long id) {
         this.id = id;
     }
@@ -27,7 +29,6 @@ public abstract class AbstractPersonnel {
     public String getUsername() {
         return username;
     }
-
     public void setUsername(String username) {
         this.username = username;
     }
@@ -36,7 +37,6 @@ public abstract class AbstractPersonnel {
     public String getPassword() {
         return password;
     }
-
     public void setPassword(String password) {
         this.password = password;
     }
@@ -45,7 +45,6 @@ public abstract class AbstractPersonnel {
     public Long getPersonnelCode() {
         return personnelCode;
     }
-
     public void setPersonnelCode(Long personnelCode) {
         this.personnelCode = personnelCode;
     }
@@ -54,7 +53,6 @@ public abstract class AbstractPersonnel {
     public Set<Leave> getLeaves() {
         return leaves;
     }
-
     public void setLeaves(Set<Leave> leaves) {
         this.leaves = leaves;
     }
